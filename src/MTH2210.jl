@@ -19,6 +19,7 @@ include("ptfixes.jl")
 
 export bissec , secante , newton1D , newtonNDder , newtonND , ptfixes
 
+include("edo_utils.jl")
 include("euler.jl")
 include("eulermod.jl")
 include("ptmilieu.jl")

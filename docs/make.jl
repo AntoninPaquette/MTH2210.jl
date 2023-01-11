@@ -18,4 +18,4 @@ makedocs(
             ]
     )
 
-deploydocs(repo = "github.com/amontoison/MTH2210.jl.git")
+deploydocs(repo = "github.com/AntoninPaquette/MTH2210_Julia.jl")

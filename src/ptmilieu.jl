@@ -19,7 +19,7 @@ jusqu'au temps ``t_f`` avec pas constant ``h``:
 
 # Sortie
     1.  temps   -   (Array{Float,1}) Vecteur contenant les pas de temps
-    2.  Y       -   (Array{Float,2}) Matrice de dimension (nbpas+1) x N contenant les approximations
+    2.  Y       -   (Array{Float,2}) Matrice de dimension N x (nbpas+1) contenant les approximations
 
 # Exemples d'appel
 ```julia
@@ -40,43 +40,19 @@ end
 """
 function ptmilieu(fct::Function, tspan::AbstractVector{T}, Y0::AbstractVector{T} , nbpas::Integer) where {T<:AbstractFloat}
 
-     # Vérification des arguments d'entrée
-     if length(tspan) != 2
-         error("Le vecteur tspan doit contenir 2 composantes, [t0 , tf]")
-     elseif nbpas<=0
-     error(string("L'argument nbpas=$nbpas n'est pas valide. ",
-                          "Cet argument doit être un entier > 0."))
-     end
+    # Vérification des arguments d'entrée
+    args_check(fct, tspan, Y0, nbpas)
 
-     try
-         fct(tspan[1],Y0)
-     catch y
-         if isa(y,BoundsError)
-             error("Le nombre de composantes de Y0 et f ne concorde pas")
-         else
-             error(y)
-         end
-     end
+    (N, Y, temps, h) = edo_init(tspan, Y0, nbpas)
+    
+    k1      =   zeros(T,N)
 
-     if ~isa(fct(tspan[1],Y0),T) && ~isa(fct(tspan[1],Y0),Array{T,1})
-         error("La fonction f ne retourne pas un vecteur de type float")
-     elseif (length(Y0) != length(fct(tspan[1],Y0)))
-         error("Le nombre de composantes de Y0 et f ne concorde pas")
-     end
+    for t=1:nbpas
+        k1 .= h .* fct(temps[t], view(Y,:,t))
+        Y[:,t+1] .= view(Y,:,t) .+ h .* fct(temps[t] + h/2, view(Y,:,t) .+ k1 ./2)
+    end
 
-     N       =   length(Y0)
-     Y       =   zeros(T,N,nbpas+1)
-     Y[:,1]  .=  Y0
-     temps   =   LinRange{T}(tspan[1], tspan[2] , nbpas+1)
-     h       =   temps[2] - temps[1]
-     k1      =   zeros(T,N)
-
-     for t=1:nbpas
-         k1 .= h .* fct(temps[t], view(Y,:,t))
-         Y[:,t+1] .= view(Y,:,t) .+ h .* fct(temps[t] + h/2, view(Y,:,t) .+ k1 ./2)
-     end
-
-     return  temps , transpose(Y)
+    return  temps , Y
 
 end
 
