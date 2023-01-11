@@ -7,16 +7,16 @@ Lx = lagrange(xi , yi , x)
 ```
 
 # Entrée
-    1.  xi          -   (Array{Float,1}) Abscisses des points d'interpolation
-    2.  yi          -   (Array{Float,1}) Ordonnées des points d'interpolation
-    3.  x           -   (Array{Float,1}) Points où le polynôme d'interpolation est évalué
+    1.  xi          -   (Vector{Float}) Abscisses des points d'interpolation
+    2.  yi          -   (Vector{Float}) Ordonnées des points d'interpolation
+    3.  x           -   (Vector{Float}) Points où le polynôme d'interpolation est évalué
 
 # Sortie
-    1.  Lx          -   (Array{Float,1}) Valeur du polynôme aux points x
+    1.  Lx          -   (Vector{Float}) Valeur du polynôme aux points x
 
 # Exemples d'appel
 ```julia
-Lx = lagrange([-1,0,1] , [1,0,1] , LinRange(-1,1,200))
+Lx = lagrange([-1,0,1] , [1,0,1] , LinRange(-1, 1, 200))
 ```
 """
 function lagrange(xi::AbstractVector{T}, yi::AbstractVector{T}, x::AbstractVector{T}) where {T<:AbstractFloat}

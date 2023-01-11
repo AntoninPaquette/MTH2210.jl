@@ -58,8 +58,8 @@ nothing # hide
 Les résultats peuvent ensuite être affichés dans un graphique.
 
 ```@example 1
-plot(temps,z[:,1],label="y(t)")
-plot!(temps,z[:,2],label="y'(t)",xlabel="temps [s]",title="Approximation avec Euler exp.")
+plot(temps,z[1,:],label="y(t)")
+plot!(temps,z[2,:],label="y'(t)",xlabel="temps [s]",title="Approximation avec Euler exp.")
 plot!([],[],label="",size=(400,300)); savefig("edo-plot.png"); nothing # hide
 ```
 

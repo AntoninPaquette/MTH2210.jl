@@ -7,19 +7,19 @@ de Newton:
 
 # Syntaxe
 ```julia
-(approx , err_abs) = newtonNDder(fct , jac , x0 , nb_it_max , tol_rel)
+(approx , err_abs) = newtonNDder(fct, jac, x0, nb_it_max, tol_rel)
 ```
 
 # Entrée
     1.  fct         -   Fonction F
     2.  dfct        -   Matrice jacobienne de la fonction F
-    3.  x0          -   (Array{Float,1}) Vecteur des approximations initiales
+    3.  x0          -   (Vector{Float}) Vecteur des approximations initiales
     4.  nb_it_max   -   (Integer) Nombre maximum d'itérations
     5.  tol_rel     -   (Float) Tolérance sur l'approximation de l'erreur relative
 
 # Sortie
     1.  approx      -   (Array{Float,2}) Matrice de taille (nb_iter x N) contenant les itérations
-    2.  err_abs     -   (Array{Float,1}) Vecteur de dimension nb_iter contenant les erreurs absolues
+    2.  err_abs     -   (Vector{Float}) Vecteur de dimension nb_iter contenant les erreurs absolues
 
 # Exemples d'appel
 ```julia
@@ -37,7 +37,7 @@ function my_sys_nl_jac(x)
 	jac[2,2] = 1
 	return jac
 end
-(approx , err_abs) = newtonNDder(my_sys_nl , my_sys_nl_jac , [1,1] , 20 , 1e-9)
+(approx , err_abs) = newtonNDder(my_sys_nl, my_sys_nl_jac, [1,1], 20, 1e-9)
 ```
 """
 function newtonNDder(fct::Function, jac::Function, x0::AbstractVector{T}, nb_it_max::Integer, tol_rel::T) where {T<:AbstractFloat}
@@ -148,4 +148,4 @@ function check_jac(f,jac,x0,T)
 
 end
 
-@inline newtonNDder(fct::Function, jac::Function, x0::AbstractVector{<:Real}, nb_it_max::Integer, tol_rel::Real) = newtonNDder(fct , jac, Float64.(x0) , nb_it_max , Float64(tol_rel))
+@inline newtonNDder(fct::Function, jac::Function, x0::AbstractVector{<:Real}, nb_it_max::Integer, tol_rel::Real) = newtonNDder(fct, jac, Float64.(x0), nb_it_max, Float64(tol_rel))

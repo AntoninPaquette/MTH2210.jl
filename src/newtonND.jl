@@ -12,13 +12,13 @@ de Newton en approximant la matrice jacobienne:
 
 # Entrée
     1.  fct         -   Fonction F
-    2.  x0          -   (Array{Float,1}) Vecteur des approximations initiales
+    2.  x0          -   (Vector{Float}) Vecteur des approximations initiales
     3.  nb_it_max   -   (Integer) Nombre maximum d'itérations
     4.  tol_rel     -   (Float) Tolérance sur l'approximation de l'erreur relative
 
 # Sortie
     1.  approx      -   (Array{Float,2}) Matrice de taille (nb_iter x N) contenant les itérations
-    2.  err_abs     -   (Array{Float,1}) Vecteur de dimension nb_iter contenant les erreurs absolues
+    2.  err_abs     -   (Vector{Float}) Vecteur de dimension nb_iter contenant les erreurs absolues
 
 # Exemples d'appel
 ```julia
@@ -28,10 +28,10 @@ function my_sys_nl(x)
 	F[2] = -x[1]^4 + x[2]
 	return F
 end
-(approx , err_abs) = newtonND(my_sys_nl , [1,1] , 20 , 1e-9)
+(approx , err_abs) = newtonND(my_sys_nl, [1,1], 20, 1e-9)
 ```
 """
-function newtonND(fct::Function , x0::AbstractVector{T}, nb_it_max::Integer, tol_rel::T) where {T<:AbstractFloat}
+function newtonND(fct::Function, x0::AbstractVector{T}, nb_it_max::Integer, tol_rel::T) where {T<:AbstractFloat}
 
 
     try

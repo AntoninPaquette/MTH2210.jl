@@ -6,7 +6,7 @@ des points-fixes:
 
 # Syntaxe
 ```julia
-(approx , err_abs) = ptfixes(fct , x0 , nb_it_max , tol_rel)
+(approx , err_abs) = ptfixes(fct, x0, nb_it_max, tol_rel)
 ```
 
 # Entrée
@@ -16,8 +16,8 @@ des points-fixes:
     5.  tol_rel     -   (Float) Tolérance sur l'approximation de l'erreur relative
 
 # Sortie
-    1.  approx      -   (Array{Float,1}) Vecteur de taille nb_iter contenant les itérations
-    2.  err_abs     -   (Array{Float,1}) Vecteur de dimension nb_iter contenant les erreurs absolues
+    1.  approx      -   (Vector{Float}) Vecteur de taille nb_iter contenant les itérations
+    2.  err_abs     -   (Vector{Float}) Vecteur de dimension nb_iter contenant les erreurs absolues
 
 # Exemples d'appel
 ```julia
@@ -25,13 +25,13 @@ function my_fct_nl(x)
     g = -x^2/10 + x + 1
     return g
 end
-(approx , err_abs) = ptfixes(my_fct_nl , 3 , 25 , 1e-9)
+(approx , err_abs) = ptfixes(my_fct_nl, 3, 25, 1e-9)
 ```
 ```julia
-(approx , err_abs) = ptfixes( (x) -> -x^2/10 + x + 1 , 3 , 25 , 1e-9)
+(approx , err_abs) = ptfixes( x -> -x^2/10 + x + 1, 3, 25, 1e-9)
 ```
 """
-function ptfixes(fct::Function , x0::T , nb_it_max::Integer, tol_rel::T) where {T<:AbstractFloat}
+function ptfixes(fct::Function, x0::T, nb_it_max::Integer, tol_rel::T) where {T<:AbstractFloat}
 
 
      try

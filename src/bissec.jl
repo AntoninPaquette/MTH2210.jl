@@ -15,8 +15,8 @@ de la bissection.
 	5.  tol_rel     -   (Float) Tolérance sur l'approximation de l'erreur relative
 
 # Sortie
-    1.  approx      -   (Array{Float,1}) Vecteur de taille nb_iter contenant les itérations
-    2.  err_abs     -   (Array{Float,1}) Vecteur de dimension nb_iter contenant les erreurs absolues
+    1.  approx      -   (Vector{Float}) Vecteur de taille nb_iter contenant les itérations
+    2.  err_abs     -   (Vector{Float}) Vecteur de dimension nb_iter contenant les erreurs absolues
 
 # Exemples d'appel
 ```julia
@@ -24,13 +24,13 @@ function my_fct_nl(x)
     f = x^2 - 10
     return f
 end
-(approx , err_abs) = bissec(my_fct_nl , 3 , 3.5 , 200 , 1e-9)
+(approx , err_abs) = bissec(my_fct_nl, 3, 3.5, 200, 1e-9)
 ```
 ```julia
-(approx , err_abs) = bissec((x) -> x^2 - 10 , 3 , 3.5 , 200 , 1e-9)
+(approx , err_abs) = bissec((x) -> x^2 - 10, 3, 3.5, 200, 1e-9)
 ```
 """
-function bissec(fct::Function , x0::T , x1::T , nb_it_max::Integer, tol_rel::T) where {T<:AbstractFloat}
+function bissec(fct::Function, x0::T, x1::T, nb_it_max::Integer, tol_rel::T) where {T<:AbstractFloat}
 
      try
          fct(x0)
@@ -121,4 +121,4 @@ function bissec(fct::Function , x0::T , x1::T , nb_it_max::Integer, tol_rel::T) 
      return approx , err_abs
 end
 
-@inline bissec(fct::Function , x0::Real , x1::Real , nb_it_max::Integer , tol_rel::Real) = bissec(fct , Float64(x0) ,	Float64(x1) , nb_it_max , Float64(tol_rel))
+@inline bissec(fct::Function, x0::Real, x1::Real, nb_it_max::Integer, tol_rel::Real) = bissec(fct, Float64(x0), Float64(x1), nb_it_max, Float64(tol_rel))

@@ -17,8 +17,8 @@ de Newton:
     5.  tol_rel     -   (Float) Tolérance sur l'approximation de l'erreur relative
 
 # Sortie
-    1.  approx      -   (Array{Float,1}) Vecteur de taille nb_iter contenant les itérations
-    2.  err_abs     -   (Array{Float,1}) Vecteur de dimension nb_iter contenant les erreurs absolues
+    1.  approx      -   (Vector{Float}) Vecteur de taille nb_iter contenant les itérations
+    2.  err_abs     -   (Vector{Float}) Vecteur de dimension nb_iter contenant les erreurs absolues
 
 # Exemples d'appel
 ```julia
@@ -30,13 +30,13 @@ function my_dfct_nl(x)
     df = 2*x
     return df
 end
-(approx , err_abs) = newton1D(my_fct_nl , my_dfct_nl , 3 , 20 , 1e-9)
+(approx , err_abs) = newton1D(my_fct_nl, my_dfct_nl, 3, 20, 1e-9)
 ```
 ```julia
-(approx , err_abs) = newton1D((x) -> x^2 - 10 , (x) -> 2*x , 3 , 20 , 1e-9)
+(approx , err_abs) = newton1D(x -> x^2 - 10, x -> 2*x, 3, 20, 1e-9)
 ```
 """
-function newton1D(fct::Function , dfct::Function , x0::T , nb_it_max::Integer, tol_rel::T) where {T<:AbstractFloat}
+function newton1D(fct::Function, dfct::Function, x0::T, nb_it_max::Integer, tol_rel::T) where {T<:AbstractFloat}
 
      try
          fct(x0)
@@ -96,7 +96,7 @@ end
 
 
 
-function check_derivative(f,df,x0,T)
+function check_derivative(f, df, x0, T)
 
 	if x0 == 0
 		h_init	=	1e-6
@@ -120,4 +120,4 @@ function check_derivative(f,df,x0,T)
     return test
 end
 
-@inline newton1D(fct::Function , dfct::Function , x0::Real , nb_it_max::Integer , tol_rel::Real) = newton1D(fct , dfct , Float64(x0) , nb_it_max, Float64(tol_rel))
+@inline newton1D(fct::Function, dfct::Function, x0::Real, nb_it_max::Integer, tol_rel::Real) = newton1D(fct, dfct, Float64(x0), nb_it_max, Float64(tol_rel))
