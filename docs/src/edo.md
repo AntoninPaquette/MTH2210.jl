@@ -11,7 +11,7 @@ Les algorithmes disponibles sont:
 4. Runge-Kutta d'ordre 4: [`rk4`](@ref).
 
 
-## Exemple de résolution d'un système d'équations différentielles ordinaires
+## [Exemple de résolution d'un système d'équations différentielles ordinaires] (@id ode)
 Soit l'équation différentielle ordinaire d'ordre 2 décrivant un système masse-ressort
 de masse ``m=2\,\text{kg}`` et de constante de rappel ``k=3\,\text{N/m}``:
 

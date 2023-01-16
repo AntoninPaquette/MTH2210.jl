@@ -1,6 +1,6 @@
 # MTH2210
 
-Codes Julia pour le cours MTH2210 de Polytechnique Montréal.
+Le package [MTH2210.jl](https://github.com/AntoninPaquette/MTH2210.jl) contient toutes les fonctions Julia présentées dans le cadre du cours MTH2210 de l'École Polytechnique de Montréal.
 
 | **Documentation** | **Intégration continue** | **Julia** |
 |:-----------------:|:------------------------:|:---------:|
@@ -10,7 +10,16 @@ Codes Julia pour le cours MTH2210 de Polytechnique Montréal.
 
 ```julia
 julia> ]
-pkg> add https://github.com/AntoninPaquette/MTH2210_Julia.jl
+pkg> add https://github.com/AntoninPaquette/MTH2210.jl
 pkg> test MTH2210
+```
+
+## Utilisation
+
+Un gabarit Jupyter Notebook est disponible sur la page GitHub [MTH2210.jl](https://github.com/AntoninPaquette/MTH2210.jl). Ce gabarit importe les librairies nécessaires pour le cours. Il est donc fortement recommandé d'employer ce gabarit pour la réalisation des laboratoires et des devoirs.
+
+La librairie MTH2210 peut être aussi importé ainsi
+
+```julia
 julia> using MTH2210
 ```

@@ -503,7 +503,7 @@ usuelles sur MatLab et Julia.
 
 | Opération                     | MatLab    | Julia     | Librairie requise     |
 | :---:                         | :---:     | :--:      | :--:                  |
-| Vecteur linéairement espacé   | linspace  | LinRange  |                       |
+| Vecteur linéairement espacé   | linspace  | range  |                       |
 | Valeur maximale d'un array    | max       | maximum   |                       |
 | Valeur minimale d'un array    | min       | minimum   |                       |
 | Résolution système linéaire   | \         | \         | LinearAlgebra         |

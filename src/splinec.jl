@@ -8,10 +8,10 @@ Sx = splinec(xi , yi , x , type_f , val_f)
 ```
 
 # Entrée
-    1.  xi          -   (Array{Float,1}) Abscisses des points d'interpolation
-    2.  yi          -   (Array{Float,1}) Ordonnées des points d'interpolation
-    3.  x           -   (Array{Float,1}) Points où la spline cubique est évaluée
-    4.  type_f      -   (Array{Integer,1}) Vecteur des types de conditions frontières
+    1.  xi          -   (Vector{Float}) Abscisses des points d'interpolation
+    2.  yi          -   (Vector{Float}) Ordonnées des points d'interpolation
+    3.  x           -   (Vector{Float}) Points où la spline cubique est évaluée
+    4.  type_f      -   (Vector{Integer}) Vecteur des types de conditions frontières
                         imposées en x_0 et x_n. Les choix possibles sont:
                             [1,1] -> Spline naturelle
                             [2,2] -> Spline avec courbure prescrite
@@ -20,7 +20,7 @@ Sx = splinec(xi , yi , x , type_f , val_f)
                             [i,j] -> Spline avec condition i imposée en x0 et
                                      condition j imposée en xn
 
-    5.  val_f       -   (Array{Float,1}) Vecteur des valeurs des conditions frontières
+    5.  val_f       -   (Vector{Float}) Vecteur des valeurs des conditions frontières
                         imposées en x_0 et x_n. Les choix possibles sont:
                             - Si type_S[1] = 1 ou 3, alors val_S[1] = NaN
                             - Si type_S[1] = 2 ou 4, alors val_S[1] = a, où a
@@ -29,7 +29,7 @@ Sx = splinec(xi , yi , x , type_f , val_f)
                             - Si type_S[2] = 2 ou 4, alors val_S[2] = b, où b
                               représente resp. la courbure ou la pente en xn
 # Sortie
-    1.  Sx          -   (Array{Float,1}) Valeur de la spline cubique aux points x
+    1.  Sx          -   (Vector{Float}) Valeur de la spline cubique aux points x
 
 # Exemples d'appel
 ```julia
@@ -117,7 +117,6 @@ function splinec(xi::AbstractVector{<:Real}, yi::AbstractVector{<:Real}, x::Abst
 		Sx[x_inter] =	poly_spline(view(xi,t:t+1),view(yi,t:t+1),view(Spp,t:t+1),h[t],x[x_inter])
 	end
 
-
     return Sx
 
 end
@@ -164,13 +163,14 @@ function divided_difference(xi::AbstractVector{<:Real} , yi::AbstractVector{<:Re
                                 (view(xi,t+1:nb) .- view(xi,1:nb-t))
     end
 
-
     return div_f
 
 end
 
 function poly_spline(xi,yi,Spp,h,x)
-    Px = -Spp[1]/(6*h) .* (x .- xi[2]).^3 .+ Spp[2]/(6*h) .* (x .- xi[1]).^3 .-
-            (yi[1]/h - Spp[1]*h/6) .* (x .- xi[2]) .+ (yi[2]/h - Spp[2]*h/6) .* (x .- xi[1])
+
+    Px = -Spp[1]/(6*h) .* (x .- xi[2]).^3 .+ Spp[2]/(6*h) .* (x .- xi[1]).^3 .- (yi[1]/h - Spp[1]*h/6) .* (x .- xi[2]) .+ (yi[2]/h - Spp[2]*h/6) .* (x .- xi[1])
+
     return Px
+
 end

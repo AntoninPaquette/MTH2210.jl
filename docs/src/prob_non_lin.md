@@ -1,4 +1,4 @@
-# Résolution de problèmes non-linéaires
+# [Résolution de problèmes non-linéaires] (@id non_linear)
 
 Cette section est dédiée à la résolution de problèmes non-linéaires. Deux types
  de problèmes non-linéaires sont étudiés, le premier est le problème de

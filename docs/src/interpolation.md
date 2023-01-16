@@ -1,4 +1,4 @@
-# Résolution de problèmes d'interpolation
+# [Résolution de problèmes d'interpolation] (@id interpolation)
 
 Cette section est dédiée à la résolution de problèmes d'interpolation. Le
 premier type d'interpolation consiste à résoudre le problème suivant:

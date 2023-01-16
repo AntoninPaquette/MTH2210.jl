@@ -1,4 +1,4 @@
-# Index des fonctions
+# [Index des fonctions] (@id index_fct)
 
 Documentation de toute les fonctions du package MTH2210
 
