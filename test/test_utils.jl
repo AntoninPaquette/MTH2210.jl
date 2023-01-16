@@ -35,8 +35,76 @@ function order_computation(err::Vector{<:Real}, ratio_h::Real, tol::Real=0.2)
 
     return (order, order_app)
 
+end
+
+
+function order_computation_nl(err::Vector{<:Real}, tol::Real=0.2)
+
+    N = length(err)
+    N>=4 || throw(ArgumentError("Not enough data (minimum of 3)"))
+
+    order_app = log.(err[2:end-1] ./ err[3:end]) ./ log.(err[1:end-2] ./ err[2:end-1])
+
+    stable_region = (order_app.>0) .& (abs.(grad_vec(order_app)).<tol) #.& abs.(del2_vec(order_app)).<2*tol
+    ind_stable_region = findall(stable_region)
+
+    # Sanity check
+	if isempty(ind_stable_region)
+		println("No asymptotic zone")
+	elseif length(ind_stable_region) < 2
+		println("Asymptotic zone not large")
+    elseif any(diff(ind_stable_region) .!= 1)
+        print(ind_stable_region)
+        println("Broken asymptotic zone")
+	end
+	
+	order = mean(order_app[ind_stable_region])
+
+    return (order, order_app)
 
 end
+
+function rate_computation_nl(err::Vector{<:Real}, order::Real, tol::Real=0.2)
+
+    N = length(err)
+    N>=3 || throw(ArgumentError("Not enough data (minimum of 3)"))
+
+    rate_app = err[2:end] ./ (err[1:end-1] .^ order)
+
+    stable_region = (rate_app.>0) .& (abs.(grad_vec(rate_app)).<tol) #.& abs.(del2_vec(order_app)).<2*tol
+    ind_stable_region = findall(stable_region)
+
+    # Sanity check
+	if isempty(ind_stable_region)
+		println("No asymptotic zone")
+	elseif length(ind_stable_region) < 2
+		println("Asymptotic zone not large")
+    elseif any(diff(ind_stable_region) .!= 1)
+        print(ind_stable_region)
+        println("Broken asymptotic zone")
+	end
+	
+	rate = mean(rate_app[ind_stable_region])
+
+    return (rate, rate_app)
+
+end
+
+
+function order_computation_bissec(err)
+    # Least-square fit approximation of the order for the bissec method
+    
+    nb_iter	=	length(err)
+    A		=	hcat(ones(nb_iter-2), log.(err[1:end-2]))
+    b		=	log.(err[2:end-1])
+    coeff	=	A\b;
+    
+    order	=	coeff[2];
+
+    return order
+    
+end
+
 
 function grad_vec(vec::Vector{<:Real})
     

@@ -1,4 +1,4 @@
-@testset "edo" begin
+@testset "ODE" begin
     
     euler_algo = algo(euler,1)
     eulermod_algo = algo(eulermod,2)
